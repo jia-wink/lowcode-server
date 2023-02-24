@@ -1,7 +1,6 @@
-const express = require("express");
 let mysql = require("mysql");
 // sql对应在父函数中写的sql语句
-express.base = (sql, data, callback) => {
+exports.base = (sql, data, callback) => {
   let connection = mysql.createConnection({
     host: "localhost", //表示这个账号只能本地使用，如果要远程登录则为%
     // port:3306,//端口号
