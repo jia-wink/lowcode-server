@@ -10,4 +10,7 @@ router.post("/api/register", services.register);
 // 发送验证码功能
 router.post("/api/code", services.code);
 
+// 测试功能
+router.get("/api/test", services.test);
+
 module.exports = router;

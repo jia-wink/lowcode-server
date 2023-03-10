@@ -7,21 +7,27 @@ exports.start = (req, res) => {};
 exports.login = (req, res) => {
   let username = req.body.username;
   let pwd = req.body.password;
-  console.log("username=", req.body);
+  if (username.length === 0 || pwd.length === 0) {
+    return res.json({ status: 0, msg: "请输入账号或密码！" });
+  }
   // 查询语句
   let sql = "select * from Login where username = ?";
-  db.base(sql, username, (result, error) => {
-    if (!result.length) {
-      return res.json({ status: 0, msg: "登录失败" });
-    } else {
-      if (result[0].password == pwd) {
-        console.log(result);
-        return res.json({ status: 1, msg: "登录成功a" });
-      }
+  try {
+    db.base(sql, username, (result, error) => {
+      if (!result.length) {
+        return res.json({ status: 0, msg: "登录失败" });
+      } else {
+        if (result[0].password == pwd) {
+          console.log(result);
+          return res.json({ status: 1, msg: "登录成功a" });
+        }
 
-      return res.json({ status: 0, msg: "密码错误" });
-    }
-  });
+        return res.json({ status: 0, msg: "密码错误" });
+      }
+    });
+  } catch (e) {
+    console.log("出错啦", e);
+  }
 };
 exports.register = (req, res) => {
   let username = req.body.username;
@@ -86,7 +92,7 @@ exports.code = (req, res) => {
       transport.close;
     }
   });
-
+  console.log("123456");
   let sql1 = "select username from Login where username = ?";
   db.base(sql1, email, (result, error) => {
     console.log("查询是否有这个账号", result);
@@ -117,4 +123,9 @@ exports.code = (req, res) => {
       }
     }
   });
+};
+
+exports.test = (req, res) => {
+  console.log("进入到后台接口了");
+  return res.json({ status: 1, msg: "测试成功！" });
 };

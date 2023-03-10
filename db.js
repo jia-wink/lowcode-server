@@ -2,11 +2,11 @@ let mysql = require("mysql");
 // sql对应在父函数中写的sql语句
 exports.base = (sql, data, callback) => {
   let connection = mysql.createConnection({
-    host: "localhost", //表示这个账号只能本地使用，如果要远程登录则为%
-    // port:3306,//端口号
-    user: "root", //用户名
+    host: "49.233.47.4", //表示这个账号只能本地使用，如果要远程登录则为%
+    port: 3306, //端口号
+    user: "lowcodeMysql", //用户名
     password: "141242", //密码
-    database: "lowcode_H5", //要打开的数据库
+    database: "lowcodedb", //要打开的数据库
   });
   connection.connect((err) => {
     if (err) throw err;
